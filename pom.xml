@@ -275,10 +275,10 @@
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>flatten-maven-plugin</artifactId>
             </plugin>
-            <plugin>
-                <groupId>io.github.SilenceShine</groupId>
-                <artifactId>maven-repository-github-plugin</artifactId>
-            </plugin>
+            <!--            <plugin>-->
+            <!--                <groupId>io.github.SilenceShine</groupId>-->
+            <!--                <artifactId>maven-repository-github-plugin</artifactId>-->
+            <!--            </plugin>-->
         </plugins>
     </build>
 

@@ -1,5 +1,6 @@
 package io.github.SilenceShine.shine.cloud.example;
 
+import io.github.SilenceShine.shine.cloud.example.config.WebClientConfiguration;
 import io.github.SilenceShine.shine.cloud.httpinterface.webclient.EnableWebclientHttpExchanges;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -18,12 +19,12 @@ import reactor.core.publisher.Mono;
 @EnableWebclientHttpExchanges
 public class ExampleWebclientApplication {
 
+    @Autowired
+    private WebClientConfiguration.TestClient testClient;
+
     public static void main(String[] args) {
         SpringApplication.run(ExampleWebclientApplication.class, args);
     }
-
-    @Autowired
-    private WebClientConfiguration.TestClient testClient;
 
     @GetMapping("/single")
     public Mono<ResponseEntity<Object>> single() {

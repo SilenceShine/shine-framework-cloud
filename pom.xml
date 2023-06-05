@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
@@ -9,12 +9,13 @@
     <artifactId>shine-framework-cloud</artifactId>
     <groupId>io.github.SilenceShine</groupId>
     <version>${revision}</version>
+
     <name>shine-framework-cloud</name>
     <description>Shine Cloud 脚手架</description>
     <url>https://github.com/SilenceShine/shine-framework-cloud.git</url>
 
     <properties>
-        <revision>0.4.1</revision>
+        <revision>0.4.2</revision>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>17</java.version>
@@ -25,8 +26,13 @@
         <maven-source-plugin.version>3.2.1</maven-source-plugin.version>
         <maven-deploy-plugin.version>3.1.0</maven-deploy-plugin.version>
 
+        <shine-framework-spring.version>0.4.2-SNAPSHOT</shine-framework-spring.version>
         <spring-boot-dependencies.version>3.0.2</spring-boot-dependencies.version>
         <spring-cloud-commons.version>4.0.1</spring-cloud-commons.version>
+        <spring-cloud-dependencies.version>2022.0.2</spring-cloud-dependencies.version>
+        <spring-cloud-commons-dependencies.version>4.0.2</spring-cloud-commons-dependencies.version>
+        <spring-cloud-alibaba-dependencies.version>2022.0.0.0-RC2</spring-cloud-alibaba-dependencies.version>
+        <spring-cloud-square-dependencies.version>0.5.0-SNAPSHOT</spring-cloud-square-dependencies.version>
 
         <resilience4j.version>2.0.2</resilience4j.version>
         <lombok.version>1.18.26</lombok.version>
@@ -52,13 +58,74 @@
 
     <repositories>
         <repository>
-            <id>io.github.SilenceShine</id>
+            <id>SilenceShine Release</id>
             <url>https://raw.githubusercontent.com/SilenceShine/maven-repository/release</url>
+        </repository>
+        <repository>
+            <id>SilenceShine Snapshot</id>
+            <url>https://raw.githubusercontent.com/SilenceShine/maven-repository/snapshot</url>
+        </repository>
+        <repository>
+            <id>GitHub Shine-Framework</id>
+            <url>https://maven.pkg.github.com/SilenceShine/shine-framework</url>
         </repository>
     </repositories>
 
+    <profiles>
+        <profile>
+            <id>github</id>
+            <repositories>
+                <repository>
+                    <id>central</id>
+                    <url>https://repo1.maven.org/maven2</url>
+                    <releases>
+                        <enabled>true</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>true</enabled>
+                    </snapshots>
+                </repository>
+                <repository>
+                    <id>io.github.SilenceShine</id>
+                    <name>SilenceShine shine-framework-cloud Maven Packages</name>
+                    <url>https://maven.pkg.github.com/SilenceShine/shine-framework-cloud</url>
+                </repository>
+            </repositories>
+            <distributionManagement>
+                <repository>
+                    <id>io.github.SilenceShine</id>
+                    <url>https://maven.pkg.github.com/SilenceShine/shine-framework-cloud</url>
+                </repository>
+            </distributionManagement>
+        </profile>
+        <profile>
+            <id>SilenceShine maven-repository-plugin</id>
+            <pluginRepositories>
+                <pluginRepository>
+                    <id>github</id>
+                    <name>SilenceShine maven-repository-plugin Maven Packages</name>
+                    <url>https://maven.pkg.github.com/SilenceShine/maven-repository-plugin</url>
+                </pluginRepository>
+            </pluginRepositories>
+            <distributionManagement>
+                <repository>
+                    <id>Local</id>
+                    <name>Local Repository</name>
+                    <url>file://${project.build.directory}/mvn-repo</url>
+                </repository>
+            </distributionManagement>
+        </profile>
+    </profiles>
+
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>io.github.SilenceShine</groupId>
+                <artifactId>shine-framework-spring</artifactId>
+                <version>${shine-framework-spring.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
@@ -68,10 +135,31 @@
             </dependency>
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-commons-dependencies</artifactId>
-                <version>${spring-cloud-commons.version}</version>
-                <scope>import</scope>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud-dependencies.version}</version>
                 <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-commons-dependencies</artifactId>
+                <version>${spring-cloud-commons-dependencies.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-square-dependencies</artifactId>
+                <version>${spring-cloud-square-dependencies.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <version>${spring-cloud-alibaba-dependencies.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
             <dependency>
                 <groupId>io.github.SilenceShine</groupId>
@@ -98,87 +186,6 @@
             <version>${lombok.version}</version>
         </dependency>
     </dependencies>
-
-    <distributionManagement>
-        <repository>
-            <id>io.github.SilenceShine</id>
-            <url>https://maven.pkg.github.com/SilenceShine/shine-framework-cloud</url>
-        </repository>
-    </distributionManagement>
-
-    <profiles>
-        <profile>
-            <id>github</id>
-            <repositories>
-                <repository>
-                    <id>io.github.SilenceShine</id>
-                    <name>SilenceShine shine-framework-cloud Maven Packages</name>
-                    <url>https://maven.pkg.github.com/SilenceShine/shine-framework-cloud</url>
-                </repository>
-            </repositories>
-        </profile>
-        <profile>
-            <id>spring</id>
-            <repositories>
-                <repository>
-                    <id>spring-snapshots</id>
-                    <name>Spring Snapshots</name>
-                    <url>https://repo.spring.io/libs-snapshot-local</url>
-                    <snapshots>
-                        <enabled>true</enabled>
-                    </snapshots>
-                    <releases>
-                        <enabled>false</enabled>
-                    </releases>
-                </repository>
-                <repository>
-                    <id>spring-milestones</id>
-                    <name>Spring Milestones</name>
-                    <url>https://repo.spring.io/libs-milestone-local</url>
-                    <snapshots>
-                        <enabled>false</enabled>
-                    </snapshots>
-                </repository>
-                <repository>
-                    <id>spring-releases</id>
-                    <name>Spring Releases</name>
-                    <url>https://repo.spring.io/release</url>
-                    <snapshots>
-                        <enabled>false</enabled>
-                    </snapshots>
-                </repository>
-            </repositories>
-            <pluginRepositories>
-                <pluginRepository>
-                    <id>spring-snapshots</id>
-                    <name>Spring Snapshots</name>
-                    <url>https://repo.spring.io/libs-snapshot-local</url>
-                    <snapshots>
-                        <enabled>true</enabled>
-                    </snapshots>
-                    <releases>
-                        <enabled>false</enabled>
-                    </releases>
-                </pluginRepository>
-                <pluginRepository>
-                    <id>spring-milestones</id>
-                    <name>Spring Milestones</name>
-                    <url>https://repo.spring.io/libs-milestone-local</url>
-                    <snapshots>
-                        <enabled>false</enabled>
-                    </snapshots>
-                </pluginRepository>
-                <pluginRepository>
-                    <id>spring-releases</id>
-                    <name>Spring Releases</name>
-                    <url>https://repo.spring.io/libs-release-local</url>
-                    <snapshots>
-                        <enabled>false</enabled>
-                    </snapshots>
-                </pluginRepository>
-            </pluginRepositories>
-        </profile>
-    </profiles>
 
     <build>
         <pluginManagement>
@@ -232,6 +239,27 @@
                         </execution>
                     </executions>
                 </plugin>
+                <plugin>
+                    <groupId>io.github.SilenceShine</groupId>
+                    <artifactId>maven-repository-github-plugin</artifactId>
+                    <version>${maven-repository-github-plugin.version}</version>
+                    <configuration>
+                        <id>io.github.SilenceShine</id>
+                        <owner>SilenceShine</owner>
+                        <repository>maven-repository</repository>
+                        <branchRelease>release</branchRelease>
+                        <branchSnapshot>snapshot</branchSnapshot>
+                        <message>update ${project.groupId}:${project.artifactId}:${project.version}</message>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <phase>deploy</phase>
+                            <goals>
+                                <goal>github</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
             </plugins>
         </pluginManagement>
         <plugins>
@@ -246,6 +274,10 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>flatten-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>io.github.SilenceShine</groupId>
+                <artifactId>maven-repository-github-plugin</artifactId>
             </plugin>
         </plugins>
     </build>

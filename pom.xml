@@ -15,7 +15,7 @@
     <url>https://github.com/SilenceShine/shine-framework-cloud.git</url>
 
     <properties>
-        <revision>0.4.2</revision>
+        <revision>0.4.3-SNAPSHOT</revision>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>17</java.version>
@@ -26,7 +26,7 @@
         <maven-source-plugin.version>3.2.1</maven-source-plugin.version>
         <maven-deploy-plugin.version>3.1.0</maven-deploy-plugin.version>
 
-        <shine-framework-spring.version>0.4.2-SNAPSHOT</shine-framework-spring.version>
+        <shine-framework-spring.version>0.4.3-SNAPSHOT</shine-framework-spring.version>
         <spring-boot-dependencies.version>3.0.2</spring-boot-dependencies.version>
         <spring-cloud-commons.version>4.0.1</spring-cloud-commons.version>
         <spring-cloud-dependencies.version>2022.0.2</spring-cloud-dependencies.version>
@@ -56,18 +56,21 @@
         </developer>
     </developers>
 
+
     <repositories>
         <repository>
             <id>SilenceShine Release</id>
             <url>https://raw.githubusercontent.com/SilenceShine/maven-repository/release</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
         </repository>
         <repository>
             <id>SilenceShine Snapshot</id>
             <url>https://raw.githubusercontent.com/SilenceShine/maven-repository/snapshot</url>
-        </repository>
-        <repository>
-            <id>GitHub Shine-Framework</id>
-            <url>https://maven.pkg.github.com/SilenceShine/shine-framework</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
         </repository>
     </repositories>
 

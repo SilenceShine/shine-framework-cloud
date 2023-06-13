@@ -28,7 +28,9 @@
 
         <shine-framework-spring.version>0.4.3-SNAPSHOT</shine-framework-spring.version>
         <spring-boot-dependencies.version>3.0.2</spring-boot-dependencies.version>
-        <spring-cloud-commons.version>4.0.1</spring-cloud-commons.version>
+        <spring-cloud-commons.version>4.0.3</spring-cloud-commons.version>
+        <spring-cloud-kubernetes.version>3.0.3</spring-cloud-kubernetes.version>
+        <spring-cloud-dependencies-parent.version>4.0.2</spring-cloud-dependencies-parent.version>
         <spring-cloud-dependencies.version>2022.0.2</spring-cloud-dependencies.version>
         <spring-cloud-commons-dependencies.version>4.0.2</spring-cloud-commons-dependencies.version>
         <spring-cloud-alibaba-dependencies.version>2022.0.0.0-RC2</spring-cloud-alibaba-dependencies.version>
@@ -55,7 +57,6 @@
             <organizationUrl>https://github.com/SilenceShine</organizationUrl>
         </developer>
     </developers>
-
 
     <repositories>
         <repository>
@@ -154,6 +155,20 @@
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-square-dependencies</artifactId>
                 <version>${spring-cloud-square-dependencies.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies-parent</artifactId>
+                <version>${spring-cloud-dependencies-parent.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-kubernetes</artifactId>
+                <version>${spring-cloud-kubernetes.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -278,10 +293,10 @@
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>flatten-maven-plugin</artifactId>
             </plugin>
-            <!--            <plugin>-->
-            <!--                <groupId>io.github.SilenceShine</groupId>-->
-            <!--                <artifactId>maven-repository-github-plugin</artifactId>-->
-            <!--            </plugin>-->
+            <plugin>
+                <groupId>io.github.SilenceShine</groupId>
+                <artifactId>maven-repository-github-plugin</artifactId>
+            </plugin>
         </plugins>
     </build>
 
